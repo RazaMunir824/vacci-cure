@@ -1,7 +1,7 @@
 import React from "react";
 import profile from "../../images/profile.png";
 import "./style.css";
-
+//import 'tachyons';
 export default function Index({ logo }) {
   return (
     <>
