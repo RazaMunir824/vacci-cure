@@ -1,17 +1,20 @@
 import Login from "./components/Forms/Login";
 import React from "react";
 import logo from "./images/logo.png";
-import Homepage from "./components/Homepage/index";
-import Hospital from "./components/Hospital/index";
-import Admin from "./components/Admin/index";
-import Parents from "./components/Parents/index";
+import Homepage from "./components/Homepage/Index";
+import Hospital from "./components/Hospital/Index";
+import Admin from "./components/Admin/Index";
+import Parents from "./components/Parents/Index";
 import AddChild from "./components/Forms/AddChild";
 import Registration from "./components/Forms/Registration";
 import HosRegistration from "./components/Forms/HosRegistration";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { useSelector } from "react-redux";
 export default function App() {
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <>
       <Router>
@@ -22,10 +25,10 @@ export default function App() {
           <Route path="/parents" exact>
             <Parents logo={logo} />
           </Route>
-          <Route path="/Admin">
+          <Route path="/admin">
             <Admin logo={logo} />
           </Route>
-          <Route path="/Hospital" exact>
+          <Route path="/hospital" exact>
             <Hospital logo={logo} />
           </Route>
           <Route path="/login" exact>

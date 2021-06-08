@@ -1,8 +1,32 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router";
+import { LOGOUT } from "../../constants";
 import profile from "../../images/profile.png";
 import "./style.css";
 
 export default function Index({ logo }) {
+  //react mapStateToProps and MapDispatchToprops hooks
+  const { authorized } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  //
+  if (!authorized) {
+    return <Redirect to="/login" />;
+  }
+  const logout = () => {
+    return {
+      type: LOGOUT,
+      payload: {
+        user: [],
+        authorized: false,
+      },
+    };
+  };
+
+  const handleLogout = (e) => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -60,9 +84,12 @@ export default function Index({ logo }) {
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/logout">
+                        <button
+                          className="dropdown-item"
+                          onClick={(e) => handleLogout(e)}
+                        >
                           Logout
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -103,20 +130,20 @@ export default function Index({ logo }) {
       </main>
 
       <div className="container">
-        <form class="row">
-          <div class="col-8">
-            <label for="inputPassword2" class="visually-hidden">
+        <form className="row">
+          <div className="col-8">
+            <label htmlFor="inputPassword2" className="visually-hidden">
               Search child by name or ID
             </label>
             <input
               type="password"
-              class="form-control"
+              className="form-control"
               id="inputPassword2"
               placeholder="Search child by name or ID"
             />
           </div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary mb-3">
+          <div className="col-4">
+            <button type="submit" className="btn btn-primary mb-3">
               Search
             </button>
           </div>

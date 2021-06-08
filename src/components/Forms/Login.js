@@ -1,18 +1,50 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { LOGIN } from "../../constants";
+import { useDispatch } from "react-redux";
+
 import "./forms.css";
 function Login({ logo }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [body, setBody] = useState({});
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const login = (user) => {
+    return {
+      type: LOGIN,
+      payload: {
+        user: user,
+        authorized: true,
+      },
+    };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const innerBody = {
-      email,
-      password,
-    };
-    setBody(innerBody);
-    console.log("submitted : ", body);
+    fetch("http://localhost:5000/api/login", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        if (user.user_role === "hospital") {
+          dispatch(login(user));
+          history.push("/hospital");
+        } else if (user.user_role === "admin") {
+          dispatch(login(user));
+          history.push("/admin");
+        } else {
+          dispatch(login(user));
+          history.push("/parents");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -109,4 +141,5 @@ function Login({ logo }) {
     </>
   );
 }
+
 export default Login;
