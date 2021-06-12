@@ -19,7 +19,7 @@ export default function App() {
     <>
       <Router>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/" exact component="Homepage">
             <Homepage logo={logo} />
           </Route>
           <Route path="/parents" exact>

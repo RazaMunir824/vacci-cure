@@ -9,8 +9,8 @@ function Login({ logo }) {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  //Action
   const dispatch = useDispatch();
-
   const login = (user) => {
     return {
       type: LOGIN,
@@ -23,9 +23,13 @@ function Login({ logo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token")
     fetch("http://localhost:5000/api/login", {
       method: "post",
-      headers: { "content-type": "application/json" },
+      headers: { 
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         email: email,
         password: password,
@@ -33,14 +37,17 @@ function Login({ logo }) {
     })
       .then((res) => res.json())
       .then((user) => {
-        if (user.user_role === "hospital") {
-          dispatch(login(user));
+        const {data , token} = user
+        console.log(user);
+        localStorage.setItem("token", `Bearer ${token}`);
+        if (data.user_role === "hospital") {
+          dispatch(login(data));
           history.push("/hospital");
-        } else if (user.user_role === "admin") {
-          dispatch(login(user));
+        } else if (data.user_role === "admin") {
+          dispatch(login(data));
           history.push("/admin");
         } else {
-          dispatch(login(user));
+          dispatch(login(data));
           history.push("/parents");
         }
       })

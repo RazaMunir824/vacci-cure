@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LOGOUT } from "../../constants";
 import profile from "../../images/profile.png";
 import "./style.css";
@@ -24,6 +25,7 @@ export default function Index({ logo }) {
   };
 
   const handleLogout = (e) => {
+    localStorage.removeItem("token");
     dispatch(logout());
   };
 
@@ -31,9 +33,9 @@ export default function Index({ logo }) {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand d-flex flex-auto" href="/homepage">
+          <Link className="navbar-brand d-flex flex-auto" to="/homepage">
             <img src={logo} alt="Vacci-cure logo" width="150px" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -50,9 +52,9 @@ export default function Index({ logo }) {
               <li className="nav-item"></li>
               <div className="d-flex float-right">
                 <li className="nav-item">
-                  <a href="/add-child" className="btn btn-primary">
+                  <Link to="/add-child" className="btn btn-primary">
                     + Register child
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item ms-2">
                   <div className="dropdown">
@@ -74,14 +76,14 @@ export default function Index({ logo }) {
                       aria-labelledby="dropdownMenuButton1"
                     >
                       <li>
-                        <a className="dropdown-item" href="/change-password">
+                        <Link className="dropdown-item" to="/change-password">
                           Change Password
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/edit-profile">
+                        <Link className="dropdown-item" to="/edit-profile">
                           Edit profile
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <button
@@ -111,9 +113,9 @@ export default function Index({ logo }) {
                   Registered Child by "hospital name"
                 </h5>
                 <p className="card-text h1">24</p>
-                <a href="/" className="text-end">
+                <Link to="/" className="text-end">
                   View all
-                </a>
+                </Link>
               </div>
             </div>
           </div>
