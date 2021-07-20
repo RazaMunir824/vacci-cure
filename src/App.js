@@ -1,5 +1,5 @@
-import Login from "./components/Forms/Login";
 import React from "react";
+import Login from "./components/Forms/Login";
 import logo from "./images/logo.png";
 import Homepage from "./components/Homepage/Index";
 import Hospital from "./components/Hospital/Index";
@@ -8,7 +8,6 @@ import Parents from "./components/Parents/Index";
 import AddChild from "./components/Forms/AddChild";
 import Registration from "./components/Forms/Registration";
 import HosRegistration from "./components/Forms/HosRegistration";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useSelector } from "react-redux";
